@@ -1,0 +1,15 @@
+{
+    "param":{
+
+            "local_server" :"True",
+            "local_uri"    :"mysql://root:@localhost/ict_learner",
+            "produc_uri"   :"mysql://root:@localhost/ict_learner",
+            "fb_url"       :"https://facebook.com/abrar hasan",
+            "tw_url"       :"https://twiter.com",
+            "git_url"      :"https://github.com/milton9220",
+            "blog_title"   :"ICT Learner",
+            "blog_logo"    :"ICT LEARNER",
+            "blog_tagline" :"BY MILTON"
+
+    }
+}
