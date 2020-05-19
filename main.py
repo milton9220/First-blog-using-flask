@@ -1,6 +1,7 @@
 from flask import Flask,render_template,request
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+
 import json
 import pymysql
 pymysql.install_as_MySQLdb()
@@ -46,6 +47,8 @@ def contact():
         entry=Contacts(name=name,email=email,phone=phone,message=message,date=datetime.now())
         db.session.add(entry)
         db.session.commit()
+        
+        
 
     return render_template('contact.html',pass_param=params)
 

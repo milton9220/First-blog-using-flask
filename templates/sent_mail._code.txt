@@ -1,0 +1,13 @@
+app.config.update(
+    MAIL_SERVER='smtp.gmail.com',
+    MAIL_PORT='465',
+    MAIL_USE_SSL=True,
+    MAIL_USERNAME=params['mail_username'],
+    MAIL_PASSWORD=params['mail_password']
+)
+mail=Mail(app)
+
+mail.send_message("New message from "+name, sender=email,
+     recipients=[params['mail_username']],
+     body=message +"\n"+phone
+)
