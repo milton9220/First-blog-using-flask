@@ -1,7 +1,7 @@
 from flask import Flask,render_template,request
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-
+from flask_mail import Mail
 import json
 import pymysql
 pymysql.install_as_MySQLdb()
@@ -12,6 +12,14 @@ with open('templates/config.json','r') as c:
 local_server=True
 
 app = Flask(__name__)
+app.config.update(
+    MAIL_SERVER = 'smtp.gmail.com',
+    MAIL_PORT = '465',
+    MAIL_USE_SSL = True,
+    MAIL_USERNAME = params['gmail-user'],
+    MAIL_PASSWORD=  params['gmail-password']
+)
+mail = Mail(app)
 
 if local_server:
     app.config['SQLALCHEMY_DATABASE_URI'] = params['local_uri']
@@ -47,7 +55,11 @@ def contact():
         entry=Contacts(name=name,email=email,phone=phone,message=message,date=datetime.now())
         db.session.add(entry)
         db.session.commit()
-        
+        mail.send_message('New message from ' + name,
+                          sender=email,
+                          recipients = [params['gmail-user']],
+                          body = message + "\n" + phone
+                          )
         
 
     return render_template('contact.html',pass_param=params)
