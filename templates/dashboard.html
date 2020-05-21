@@ -20,8 +20,9 @@
  <div class="container">
    <div class="row">
      <div class="col-lg-8 col-md-10 mx-auto">
-      
-      <a href="/insert" class="btn btn btn-secondary">Add Post</a>
+      <h2>Basic Action</h2>
+      <a href="/insert" class="btn btn-secondary">Add Post</a>
+      <a href="/logout" class="btn  btn-primary">Logout</a>
       
     <h2 class="text-success">Edit Posts</h2>          
   <table class="table table-striped">
@@ -40,7 +41,7 @@
         <td>{{ row.id }}</td>
         <td>{{ row.title}}</td>
         <td>{{ row.date}}</td>
-        <td><button class="btn btn-primary">Edit</button></td>
+        <td><a href="/edit/{{row.id}}"><button class="btn btn-primary">Edit</button></a></td>
         <td><button class="btn btn-danger">Delete</button></td>
 
       </tr>

@@ -107,6 +107,24 @@ def insert():
     return render_template('insert.html',pass_param=params)
 
 
+@app.route('/edit/<string:id>',methods=['GET','POST'])
+def edit(id):
+    if request.method=='POST':
+        post=Posts.query.filter_by(id=id).first()
+        post.title=request.form.get('title')
+        post.slug=request.form.get('slug')
+        post.content=request.form.get('content')
+        post.image=request.form.get('image')
+        post.date=datetime.now()
+        
+        db.session.commit()
+        return redirect('/dashboard')
+       
+        
+    posts=Posts.query.filter_by(id=id).first()
+    return render_template('edit.html',pass_param=params,posts=posts)    
+
+
 @app.route('/post/<string:post_slug>',methods=['GET'])
 def post(post_slug):
     post=Posts.query.filter_by(slug=post_slug).first()

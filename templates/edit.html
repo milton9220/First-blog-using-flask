@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>insert posts</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+     
+      <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <h2>Basic Action</h2>
+        <a href="/dashboard" class="btn btn btn-danger">Dashboard Home</a>
+        <a href="/logout" class="btn btn btn-secondary">Logout</a>
+        <form name="sentMessage" action="/edit/{{posts.id}}" method="POST" id="contactForm" novalidate>
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+              <label>Post Title</label>
+              <input type="text" class="form-control" value="{{posts.title}}" placeholder="Post title" name='title' id="name">
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+              <label>Slug</label>
+              <input type="text" value="{{posts.slug}}" name='slug' class="form-control" placeholder="Slug name" id="email">
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="form-group col-xs-12 floating-label-form-group controls">
+              <label>Content</label>
+               <textarea rows="5" class="form-control" placeholder="Content" name='content' id="message" >{{posts.content}}</textarea>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+              <label>Image</label>
+              <input  class="form-control" placeholder="Image" value="{{posts.image}}" name='image' id="message" >
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          
+          <br>
+          <div id="success"></div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary" id="sendMessageButton">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
