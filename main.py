@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request,session
+from flask import Flask,render_template,request,session,redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from flask_mail import Mail
@@ -89,6 +89,23 @@ def contact():
         
 
     return render_template('contact.html',pass_param=params)
+
+@app.route('/insert',methods=['GET','POST'])
+def insert():
+    if request.method=='POST':
+        title=request.form.get('title') #fetch data from contact.html file
+        slug=request.form.get('slug') #fetch data from contact.html file
+        content=request.form.get('content') #fetch data from contact.html file
+        image=request.form.get('image')  #fetch data from contact.html file
+        entry=Posts(title=title,slug=slug,content=content,image=image,date=datetime.now())
+        db.session.add(entry)
+        db.session.commit()
+        return redirect('/')
+       
+        
+
+    return render_template('insert.html',pass_param=params)
+
 
 @app.route('/post/<string:post_slug>',methods=['GET'])
 def post(post_slug):
