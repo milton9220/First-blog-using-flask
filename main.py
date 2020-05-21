@@ -57,23 +57,20 @@ def about():
 @app.route('/dashboard',methods=['GET','POST'])
 def dashboard():
     if ('user' in session and session['user']==params['admin_name']):
-        return render_template('dashboard.html',pass_param=params)
+        posts=Posts.query.all()
+        return render_template('dashboard.html',pass_param=params,posts=posts)
 
     if request.method=='POST':
         user_name=request.form.get('user_name')
         password=request.form.get('password')
         if (user_name ==params['admin_name'] and password==params['password']):
             session['user']=user_name
-            return render_template('dashboard.html',pass_param=params)
+            posts=Posts.query.all()
+            return render_template('dashboard.html',pass_param=params,posts=posts)
 
     
-    return render_template('login.html',pass_param=params)    
-	
-	
-
-    
-    	 
-
+    return render_template('login.html',pass_param=params) 
+       
 @app.route('/contact',methods=['GET','POST'])
 def contact():
     if request.method=='POST':
