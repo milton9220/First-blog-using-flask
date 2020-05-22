@@ -5,6 +5,7 @@ from flask_mail import Mail
 import json
 import pymysql
 import os
+import math
 from werkzeug.utils import secure_filename
 pymysql.install_as_MySQLdb()
 
@@ -50,8 +51,25 @@ class Posts(db.Model):
 
 @app.route('/')
 def home():
-    posts=Posts.query.filter_by().all()[0:params['num_of_post']]
-    return render_template('index.html',pass_param=params,posts=posts)
+    posts=Posts.query.filter_by().all()
+    last=math.ceil(len(posts)/params['num_of_post'])
+    page=request.args.get('page')
+    
+    if (not str(page).isnumeric()):
+        page=1
+    page=int(page)
+    posts=posts[(page-1)*int(params['num_of_post']):(page-1)*int(params['num_of_post'])+int(params['num_of_post'])]  #show the posts in the index pages.there first post page value 4 but page 2 te value hobe 4:8 slicing kore otthat 4 theke 8 pojonto post show korbe
+    if page==1:
+        prev="#"
+        next="/?page=" +str(page+1)
+    elif page==last:
+              prev="/?page=" +str(page-1)
+              next="#"
+    else:
+        prev="/?page=" +str(page-1) 
+        next="/?page=" +str(page+1)         
+
+    return render_template('index.html',pass_param=params,posts=posts,prev=prev,next=next)
 
 @app.route('/about')
 def about():
