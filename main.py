@@ -4,6 +4,8 @@ from datetime import datetime
 from flask_mail import Mail
 import json
 import pymysql
+import os
+from werkzeug.utils import secure_filename
 pymysql.install_as_MySQLdb()
 
 with open('templates/config.json','r') as c:
@@ -13,6 +15,7 @@ local_server=True
 
 app = Flask(__name__)
 app.secret_key = 'super secret key'
+app.config['UPLOAD_URL']=params['upload_location']
 app.config.update(
     MAIL_SERVER = 'smtp.gmail.com',
     MAIL_PORT = '465',
@@ -53,6 +56,13 @@ def home():
 @app.route('/about')
 def about():
     return render_template('about.html',pass_param=params)
+
+@app.route('/uploader',methods=['GET','POST'])
+def uploader():
+    if request.method=='POST':
+        f=request.files['file']
+        f.save(os.path.join(app.config['UPLOAD_URL'],secure_filename(f.filename)))
+        return "Uploda successfully"
 
 @app.route('/dashboard',methods=['GET','POST'])
 def dashboard():
@@ -119,8 +129,6 @@ def edit(id):
         
         db.session.commit()
         return redirect('/dashboard')
-       
-        
     posts=Posts.query.filter_by(id=id).first()
     return render_template('edit.html',pass_param=params,posts=posts)    
 

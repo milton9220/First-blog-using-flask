@@ -15,7 +15,8 @@
             "about_text"    :"Hi,,,I am Monjur Hasan Milton.I am     a  student of computer science engineer. In this   website you can learn ICT books all chapter",
             "num_of_post"   :4,
             "admin_name"    :"milton",
-            "password"      :"12345678"
+            "password"      :"12345678",
+            "upload_location":"E:\\First blog site with flask\\static\\img"
 
 
     }

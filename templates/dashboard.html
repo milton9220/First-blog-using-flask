@@ -23,7 +23,11 @@
       <h2>Basic Action</h2>
       <a href="/insert" class="btn btn-secondary">Add Post</a>
       <a href="/logout" class="btn  btn-primary">Logout</a>
-      
+       <h2>Upload Files</h2>
+       <form action="/uploader" method="POST" enctype="multipart/form-data">
+          <input type="file" name="file">
+          <button type="submit" class="btn  btn-primary">Submit</button>
+      </form>
     <h2 class="text-success">Edit Posts</h2>          
   <table class="table table-striped">
     <thead>
